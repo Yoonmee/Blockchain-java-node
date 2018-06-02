@@ -52,6 +52,7 @@ public class AgentController {
         agentManager.deleteAgent(name);
     }
 
+    //agent 이름, port 임의로 추가
     //@RequestMapping(method=POST, params = {"name", "port"})
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ResponseBody
