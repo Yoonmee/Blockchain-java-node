@@ -1,5 +1,8 @@
 package web;
 
+import java.net.HttpURLConnection;
+import java.net.URL;
+import javax.net.ssl.HttpsURLConnection;
 import agent.Agent;
 import agent.AgentManager;
 import agent.Block;
@@ -88,4 +91,29 @@ public class AgentController {
 			System.out.println(body);
 			return "/";
 	}
+	
+//	@RequestMapping(value = "/data", method = RequestMethod.POST)
+//    @ResponseBody
+//    public String sendData() {
+//
+//		String url = "http:8000/getsping";
+//		URL obj = new URL(url);
+//		HttpsURLConnection con = (HttpsURLConnection)obj.openConnection();
+//
+//		//add reuqest header
+//		con.setRequestMethod("POST");
+//		con.setRequestProperty("User-Agent", "SendData");
+//		con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+//		String urlParameters = "user=1";
+//
+//		int responseCode = con.getResponseCode();
+//		System.out.println("\nSending 'POST' request to URL : " + url);
+//		System.out.println("Post parameters : " + urlParameters);
+//		System.out.println("Response Code : " + responseCode);
+//
+//    	System.out.println("sendData");
+//    	return "/";
+//    	
+// 	}
+
 }
