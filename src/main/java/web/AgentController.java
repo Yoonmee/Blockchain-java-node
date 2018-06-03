@@ -1,23 +1,24 @@
 package web;
 
-import java.net.HttpURLConnection;
-import java.net.URL;
-import javax.net.ssl.HttpsURLConnection;
+import org.json.simple.JSONObject;
 import agent.Agent;
 import agent.AgentManager;
 import agent.Block;
 
-import org.hibernate.validator.internal.util.logging.LoggerFactory;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+//import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
 
 import java.util.List;
-import java.util.logging.Logger;
+//import java.util.logging.Logger;
+//import java.util.Scanner;
+import java.util.Locale;
 
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -64,19 +65,54 @@ public class AgentController {
     	return agentManager.addAgent("NodeTest", 3001);
     }
 
+    // @RequestMapping(value = "/getData", method = RequestMethod.GET)
+    // public String getData(){
+    //     // JSONObject cred = new JSONObject();
+    //     // JSONObject auth=new JSONObject();
+    //     // JSONObject parent=new JSONObject();
+    //     // cred.put("username","adm");
+    //     // cred.put("password", "pwd");
+    //     // auth.put("tenantName", "adm");
+    //     // auth.put("passwordCredentials", cred);
+    //     // parent.put("auth", auth);
+    //
+    //     URLConn conn = new URLConn("http://127.0.0.1",8000);
+    //     conn.urlPost("test");
+    //
+    //     return "index";
+    // }
+
+    // @RequestMapping(value = "/getData", method = RequestMethod.GET)
+    // public List<Agent> getAllAgents() {
+    //     // JSONObject cred = new JSONObject();
+    //     // JSONObject auth=new JSONObject();
+    //     // JSONObject parent=new JSONObject();
+    //     // cred.put("username","adm");
+    //     // cred.put("password", "pwd");
+    //     // auth.put("tenantName", "adm");
+    //     // auth.put("passwordCredentials", cred);
+    //     // parent.put("auth", auth);
+    //
+    //     URLConn conn = new URLConn("http://127.0.0.1",8000);
+    //     conn.urlPost("test");
+    //
+    //     return "index";
+    // }
+
     @RequestMapping(value = "/getData", method = RequestMethod.GET)
-    public String getData(){
-        // JSONObject cred = new JSONObject();
-        // JSONObject auth=new JSONObject();
-        // JSONObject parent=new JSONObject();
-        // cred.put("username","adm");
-        // cred.put("password", "pwd");
-        // auth.put("tenantName", "adm");
-        // auth.put("passwordCredentials", cred);
-        // parent.put("auth", auth);
+    public String getData(Locale locale, Model model){
+        JSONObject cred = new JSONObject();
+        JSONObject auth=new JSONObject();
+        JSONObject parent=new JSONObject();
+        cred.put("username","adm");
+        cred.put("password", "pwd");
+        auth.put("tenantName", "adm");
+        auth.put("passwordCredentials", cred);
+        parent.put("auth", auth);
 
         URLConn conn = new URLConn("http://127.0.0.1",8000);
-        conn.urlPost("test");
+        System.out.println("spring to node!");
+        conn.urlPost(parent);
 
         return "index";
     }

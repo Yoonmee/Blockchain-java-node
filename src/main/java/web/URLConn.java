@@ -1,6 +1,6 @@
 package web;
 
-//import org.json.simple.JSONObject;
+import org.json.simple.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,7 +15,7 @@ public class URLConn {
 
     public URLConn(String urlpath,int port){
         try {
-            URL url = new URL(urlpath+":"+port+ "/fromstring");
+            URL url = new URL(urlpath+":"+port);
             conn = url.openConnection();
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -24,39 +24,25 @@ public class URLConn {
         }
     }
 
-    public void urlPost(String data) {
+    public void urlPost(JSONObject jsonObject) {
         conn.setDoOutput(true);
         conn.setUseCaches(false);
         conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
         try {
-        InputStream is = conn.getInputStream();
-        Scanner sc = new Scanner(is);
-        int line =1;
-        while (sc.hasNext()){
-              String str = sc.nextLine() ;
-              System.out.println((line++) + ":" + str);
+            OutputStreamWriter wr= new OutputStreamWriter(conn.getOutputStream());
+            wr.write(jsonObject.toString());
+            wr.flush();
+
+            InputStream is = conn.getInputStream();
+            Scanner sc = new Scanner(is);
+            int line =1;
+            while (sc.hasNext()){
+                String str = sc.nextLine() ;
+                System.out.println((line++) + ":" + str);
             }
-              sc.close();
-        }catch (IOException e) {
+            sc.close();
+        } catch (IOException e) {
             e.printStackTrace();
         }
-
-        // try {
-        //     System.out.println(data);
-        //     // OutputStreamWriter wr= new OutputStreamWriter(conn.getOutputStream());
-        //     // wr.write(jsonObject.toString());
-        //     // wr.flush();
-        //     //
-        //     // InputStream is = conn.getInputStream();
-        //     // Scanner sc = new Scanner(is);
-        //     // int line =1;
-        //     // while (sc.hasNext()){
-        //     //     String str = sc.nextLine() ;
-        //     //     System.out.println((line++) + ":" + str);
-        //     // }
-        //     // sc.close();
-        // } catch (IOException e) {
-        //     e.printStackTrace();
-        // }
     }
 }
