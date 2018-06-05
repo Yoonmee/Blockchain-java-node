@@ -3,15 +3,102 @@ package agent;
 import java.io.Serializable;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Date;
 
 public class Block implements Serializable {
     private static final long serialVersionUID = 1L;
+
+    public static String sayHello(){
+      return "Hello!!";
+    }
+
+    public class BidData implements Serializable{
+        int user_id; //경매 참여 유저 아이디
+        int item_id; //물건 id
+        int bidding_price; //유저 비딩 가격
+        int auto_bid_price; //만약 auto bid 할거면 가격, 아니면 -1
+        Date bid_time; //비딩 시각
+        //int highest_price; //등록 당시 제일 최고값?
+
+
+        //toString biddata 정보 출력
+        public String BidDatatoString() {
+          return "BidData{" +
+                  "user_id=" + user_id +
+                  ", item_id=" + item_id +
+                  ", bidding_price='" + bidding_price + //'\'' +
+                  ", auto_bid_price='" + auto_bid_price + //'\'' +
+                  ", bid_time='" + bid_time +
+                  '}';
+                  //", highest_price='" + highest_price +
+       }
+
+       //생성자
+       public BidData()
+       {
+         this.user_id = 0;
+         this.item_id = 0;
+         this.bidding_price = 0;
+         this.auto_bid_price = 0;
+         Date today = new Date();
+         //System.out.println(today);
+         this.bid_time = today;
+         //this.highest_price = _highest_price;
+       }
+
+       public BidData(int _user_id, int _item_id, int _bidding_price, int _auto_bid_price, Date _bid_time)
+       {
+         this.user_id = _user_id;
+         this.item_id = _item_id;
+         this.bidding_price = _bidding_price;
+         this.auto_bid_price = _auto_bid_price;
+         this.bid_time = _bid_time;
+         //this.highest_price = _highest_price;
+       }
+
+        public void AddBidData(int _user_id, int _item_id, int _bidding_price, int _auto_bid_price, Date _bid_time)
+      {
+        this.user_id = _user_id;
+        this.item_id = _item_id;
+        this.bidding_price = _bidding_price;
+        this.auto_bid_price = _auto_bid_price;
+        this.bid_time = _bid_time;
+        //this.highest_price = _highest_price;
+      }
+
+       public int getUserID() {
+           return user_id;
+       }
+
+       public int getItemID() {
+           return item_id;
+       }
+
+       public int getBiddingPrice() {
+           return bidding_price;
+       }
+
+       public int getAutoBidPrice() {
+           return auto_bid_price;
+       }
+
+       public Date getBidTime() {
+           return bid_time;
+       }
+
+//       public int getHighestPrice() {
+//           return highest_price;
+//       }
+      }
 
     private int index;
     private Long timestamp;
     private String hash;
     private String previousHash;
     private String creator;
+    private String data_string;
+    //private BidData data;
 
     // for jackson
     public Block() {
@@ -23,8 +110,9 @@ public class Block implements Serializable {
                 "index=" + index +
                 ", timestamp=" + timestamp +
                 ", creator=" + creator +
-//                ", hash='" + hash + '\'' +
-//                ", previousHash='" + previousHash + '\'' +
+               ", hash='" + hash + //"'\'" +
+               ", previousHash='" + previousHash +  //"'\'"  +
+               ", data='" + data_string +
                 '}';
     }
 
@@ -54,11 +142,22 @@ public class Block implements Serializable {
         return result;
     }
 
-    public Block(int index, String preHash, String creator) {
+//    public Block(int index, String preHash, String creator, BidData data) {
+//        this.index = index;
+//        this.previousHash = preHash;
+//        this.creator = creator;
+//        this.data = data;
+//        timestamp = System.currentTimeMillis();
+//        hash = calculateHash(String.valueOf(index) + previousHash + String.valueOf(timestamp));
+//    }
+
+    public Block(int index, String preHash, String creator, String data_string) {
         this.index = index;
         this.previousHash = preHash;
         this.creator = creator;
+        //this.data = data;
         timestamp = System.currentTimeMillis();
+        this.data_string = data_string;
         hash = calculateHash(String.valueOf(index) + previousHash + String.valueOf(timestamp));
     }
 
@@ -80,6 +179,11 @@ public class Block implements Serializable {
 
     public String getPreviousHash() {
         return previousHash;
+    }
+
+    public String getBidData()
+    {
+        return data_string;
     }
 
     private String calculateHash(String text) {
