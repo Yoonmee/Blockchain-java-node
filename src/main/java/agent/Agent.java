@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.Date;
 
 import static agent.Message.MESSAGE_TYPE.INFO_NEW_BLOCK;
 import static agent.Message.MESSAGE_TYPE.READY;
@@ -68,9 +69,18 @@ public class Agent {
             return null;
         }
 
+        Date today = new Date();
+        System.out.println(today);
+
+        Block temp = new Block();
+        Block.BidData _data = temp.new BidData();
+        _data.AddBidData(1,1,1,1,today);
+        String data_string = _data.BidDatatoString();
         final int index = previousBlock.getIndex() + 1;
-        final Block block = new Block(index, previousBlock.getHash(), name);
-        System.out.println(String.format("%s created new block %s", name, block.toString()));
+        //final Block block = new Block(index, previousBlock.getHash(), name);
+        final Block block = new Block(index, previousBlock.getHash(), name, data_string);
+        System.out.println(String.format("%s created new block %s !!!!!", name, block.toString()));
+        System.out.println(String.format("bid dat is string? %s", block.getBidData()));
         broadcast(INFO_NEW_BLOCK, block);
         return block;
     }
