@@ -1,5 +1,6 @@
 package web;
 
+<<<<<<< HEAD
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -11,6 +12,9 @@ import java.net.ProtocolException;
 import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
+=======
+import org.json.simple.JSONObject;
+>>>>>>> 3b316b7a45b0b8ad06e538184025697b9ac90d5b
 import agent.Agent;
 import agent.AgentManager;
 import agent.Block;
@@ -23,9 +27,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+<<<<<<< HEAD
 
 import java.util.List;
 
+=======
+//import org.springframework.web.bind.annotation.RestController;
+import org.springframework.ui.Model;
+
+import java.util.List;
+//import java.util.logging.Logger;
+//import java.util.Scanner;
+import java.util.Locale;
+>>>>>>> 3b316b7a45b0b8ad06e538184025697b9ac90d5b
 
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -37,8 +51,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 //	//private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 //
 //	@RequestMapping(value = "/domine", method = RequestMethod.POST, consumes = "application/json")
-//	//consumes ÇÏ´Â ÇüÅÂ´Â application/json ÇüÅÂÀÌ´Ù.
-//	@ResponseBody //json µ¥ÀÌÅÍ¸¦ ¹Þ±âÀ§ÇØ @ResponseBody ¾Ö³ÊÅ×ÀÌ¼Ç
+//	//consumes ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Â´ï¿½ application/json ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
+//	@ResponseBody //json ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½Þ±ï¿½ï¿½ï¿½ï¿½ï¿½ @ResponseBody ï¿½Ö³ï¿½ï¿½ï¿½ï¿½Ì¼ï¿½
 //	public String startApp(@RequestBody String body) {
 //			System.out.println(body);
 //			return "/";
@@ -63,7 +77,7 @@ public class AgentController {
         agentManager.deleteAgent(name);
     }
 
-    //agent ÀÌ¸§, port ÀÓÀÇ·Î Ãß°¡
+    //agent ï¿½Ì¸ï¿½, port ï¿½ï¿½ï¿½Ç·ï¿½ ï¿½ß°ï¿½
     //@RequestMapping(method=POST, params = {"name", "port"})
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
@@ -71,6 +85,59 @@ public class AgentController {
     	System.out.println("addAgent");
     	return agentManager.addAgent("NodeTest", 3001);
     }
+
+    // @RequestMapping(value = "/getData", method = RequestMethod.GET)
+    // public String getData(){
+    //     // JSONObject cred = new JSONObject();
+    //     // JSONObject auth=new JSONObject();
+    //     // JSONObject parent=new JSONObject();
+    //     // cred.put("username","adm");
+    //     // cred.put("password", "pwd");
+    //     // auth.put("tenantName", "adm");
+    //     // auth.put("passwordCredentials", cred);
+    //     // parent.put("auth", auth);
+    //
+    //     URLConn conn = new URLConn("http://127.0.0.1",8000);
+    //     conn.urlPost("test");
+    //
+    //     return "index";
+    // }
+
+    // @RequestMapping(value = "/getData", method = RequestMethod.GET)
+    // public List<Agent> getAllAgents() {
+    //     // JSONObject cred = new JSONObject();
+    //     // JSONObject auth=new JSONObject();
+    //     // JSONObject parent=new JSONObject();
+    //     // cred.put("username","adm");
+    //     // cred.put("password", "pwd");
+    //     // auth.put("tenantName", "adm");
+    //     // auth.put("passwordCredentials", cred);
+    //     // parent.put("auth", auth);
+    //
+    //     URLConn conn = new URLConn("http://127.0.0.1",8000);
+    //     conn.urlPost("test");
+    //
+    //     return "index";
+    // }
+
+    @RequestMapping(value = "/getData", method = RequestMethod.GET)
+    public String getData(Locale locale, Model model){
+        JSONObject cred = new JSONObject();
+        JSONObject auth=new JSONObject();
+        JSONObject parent=new JSONObject();
+        cred.put("username","adm");
+        cred.put("password", "pwd");
+        auth.put("tenantName", "adm");
+        auth.put("passwordCredentials", cred);
+        parent.put("auth", auth);
+
+        URLConn conn = new URLConn("http://127.0.0.1",8000);
+        System.out.println("spring to node!");
+        conn.urlPost(parent);
+
+        return "index";
+    }
+
 
     @RequestMapping(path = "all", method = GET)
     @ResponseBody
@@ -88,19 +155,24 @@ public class AgentController {
     //@RequestMapping(method = RequestMethod.POST, value = "/mine")
     @ResponseBody
     public Block createBlock(@RequestParam(value = "agent") final String name) {
-        
+
     	return agentManager.createBlock(name);
     }
-    
+
 	@RequestMapping(value = "/start", method = RequestMethod.POST, consumes = "application/json")
-	//consumes ÇÏ´Â ÇüÅÂ´Â application/json ÇüÅÂÀÌ´Ù.
-	@ResponseBody //json µ¥ÀÌÅÍ¸¦ ¹Þ±âÀ§ÇØ @ResponseBody ¾Ö³ÊÅ×ÀÌ¼Ç
+	//consumes ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Â´ï¿½ application/json ï¿½ï¿½ï¿½ï¿½ï¿½Ì´ï¿½.
+	@ResponseBody //json ï¿½ï¿½ï¿½ï¿½ï¿½Í¸ï¿½ ï¿½Þ±ï¿½ï¿½ï¿½ï¿½ï¿½ @ResponseBody ï¿½Ö³ï¿½ï¿½ï¿½ï¿½Ì¼ï¿½
 	public String startApp(@RequestBody String body) {
 			System.out.println(body);
 			return "/";
 	}
+<<<<<<< HEAD
 	
 //	@RequestMapping(value = "/doA", method = RequestMethod.POST)
+=======
+
+//	@RequestMapping(value = "/data", method = RequestMethod.POST)
+>>>>>>> 3b316b7a45b0b8ad06e538184025697b9ac90d5b
 //    @ResponseBody
 //    public String sendData() throws IOException {
 //
@@ -120,7 +192,7 @@ public class AgentController {
 //		System.out.println("Response Code : " + responseCode);
 //
 //    	return "/";
-//    	
+//
 // 	}
 	
 	@RequestMapping(value = "/doA", method = RequestMethod.POST)

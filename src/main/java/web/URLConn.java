@@ -1,5 +1,10 @@
 package web;
 
+<<<<<<< HEAD
+=======
+import org.json.simple.JSONObject;
+
+>>>>>>> 3b316b7a45b0b8ad06e538184025697b9ac90d5b
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStreamWriter;
@@ -8,6 +13,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Scanner;
 
+<<<<<<< HEAD
 import org.json.JSONObject;
 
 public class URLConn {
@@ -16,6 +22,14 @@ public class URLConn {
     public URLConn(String urlpath,String path2,int port){
         try {
             URL url = new URL(urlpath+":"+port+path2);
+=======
+public class URLConn {
+    URLConnection conn;
+
+    public URLConn(String urlpath,int port){
+        try {
+            URL url = new URL(urlpath+":"+port);
+>>>>>>> 3b316b7a45b0b8ad06e538184025697b9ac90d5b
             conn = url.openConnection();
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -45,4 +59,8 @@ public class URLConn {
             e.printStackTrace();
         }
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 3b316b7a45b0b8ad06e538184025697b9ac90d5b
