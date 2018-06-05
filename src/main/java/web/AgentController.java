@@ -1,6 +1,4 @@
 package web;
-
-<<<<<<< HEAD
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -12,9 +10,6 @@ import java.net.ProtocolException;
 import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
-=======
-import org.json.simple.JSONObject;
->>>>>>> 3b316b7a45b0b8ad06e538184025697b9ac90d5b
 import agent.Agent;
 import agent.AgentManager;
 import agent.Block;
@@ -27,19 +22,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-<<<<<<< HEAD
 
 import java.util.List;
 
-=======
+
 //import org.springframework.web.bind.annotation.RestController;
-import org.springframework.ui.Model;
+//import org.springframework.ui.Model;
 
 import java.util.List;
 //import java.util.logging.Logger;
 //import java.util.Scanner;
 import java.util.Locale;
->>>>>>> 3b316b7a45b0b8ad06e538184025697b9ac90d5b
+
 
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -103,41 +97,6 @@ public class AgentController {
     //     return "index";
     // }
 
-    // @RequestMapping(value = "/getData", method = RequestMethod.GET)
-    // public List<Agent> getAllAgents() {
-    //     // JSONObject cred = new JSONObject();
-    //     // JSONObject auth=new JSONObject();
-    //     // JSONObject parent=new JSONObject();
-    //     // cred.put("username","adm");
-    //     // cred.put("password", "pwd");
-    //     // auth.put("tenantName", "adm");
-    //     // auth.put("passwordCredentials", cred);
-    //     // parent.put("auth", auth);
-    //
-    //     URLConn conn = new URLConn("http://127.0.0.1",8000);
-    //     conn.urlPost("test");
-    //
-    //     return "index";
-    // }
-
-    @RequestMapping(value = "/getData", method = RequestMethod.GET)
-    public String getData(Locale locale, Model model){
-        JSONObject cred = new JSONObject();
-        JSONObject auth=new JSONObject();
-        JSONObject parent=new JSONObject();
-        cred.put("username","adm");
-        cred.put("password", "pwd");
-        auth.put("tenantName", "adm");
-        auth.put("passwordCredentials", cred);
-        parent.put("auth", auth);
-
-        URLConn conn = new URLConn("http://127.0.0.1",8000);
-        System.out.println("spring to node!");
-        conn.urlPost(parent);
-
-        return "index";
-    }
-
 
     @RequestMapping(path = "all", method = GET)
     @ResponseBody
@@ -166,35 +125,8 @@ public class AgentController {
 			System.out.println(body);
 			return "/";
 	}
-<<<<<<< HEAD
-	
-//	@RequestMapping(value = "/doA", method = RequestMethod.POST)
-=======
 
-//	@RequestMapping(value = "/data", method = RequestMethod.POST)
->>>>>>> 3b316b7a45b0b8ad06e538184025697b9ac90d5b
-//    @ResponseBody
-//    public String sendData() throws IOException {
-//
-//		String url = "http://127.0.0.1:8000/getspring";
-//		URL obj = new URL(url);
-//		HttpURLConnection con = (HttpURLConnection)obj.openConnection();
-//
-//		//add reuqest header
-//		con.setRequestMethod("POST");
-//		con.setRequestProperty("User-Agent", "SendData");
-//		con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-//		String urlParameters = "user=1";
-//
-//		int responseCode = con.getResponseCode();
-//		System.out.println("\nSending 'POST' request to URL : " + url);
-//		System.out.println("Post parameters : " + urlParameters);
-//		System.out.println("Response Code : " + responseCode);
-//
-//    	return "/";
-//
-// 	}
-	
+	//spring to node test
 	@RequestMapping(value = "/doA", method = RequestMethod.POST)
     @ResponseBody
     public String sendData() throws IOException {
