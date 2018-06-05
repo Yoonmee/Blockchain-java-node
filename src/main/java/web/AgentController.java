@@ -75,9 +75,9 @@ public class AgentController {
     //@RequestMapping(method=POST, params = {"name", "port"})
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
-    public Agent addAgent() {
+    public Agent addAgent(@RequestBody String body) {
     	System.out.println("addAgent");
-    	return agentManager.addAgent("NodeTest", 3001);
+    	return agentManager.addAgent(body, 3001);
     }
 
     // @RequestMapping(value = "/getData", method = RequestMethod.GET)
