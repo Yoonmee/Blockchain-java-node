@@ -14,7 +14,10 @@ import agent.Agent;
 import agent.AgentManager;
 import agent.Block;
 
-
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.RequestBody;
@@ -75,9 +78,14 @@ public class AgentController {
     //@RequestMapping(method=POST, params = {"name", "port"})
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
-    public Agent addAgent(@RequestBody String body) {
+    public Agent addAgent(@RequestBody String body) throws ParseException {
     	System.out.println("addAgent");
-    	return agentManager.addAgent(body, 3001);
+    	 JSONParser jsonParser = new JSONParser();
+         JSONObject jsonObj = (JSONObject) jsonParser.parse(body);
+         //JSONArray memberArray = (JSONArray) jsonObj.get("members");
+         String user_id = (jsonObj.get("user_id")).toString();
+     	System.out.println(user_id);
+    	return agentManager.addAgent(user_id, 3001);
     }
 
     // @RequestMapping(value = "/getData", method = RequestMethod.GET)
