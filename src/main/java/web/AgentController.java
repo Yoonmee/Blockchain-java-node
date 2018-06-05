@@ -3,12 +3,14 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
 import agent.Agent;
@@ -26,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 
 
@@ -36,7 +39,7 @@ import java.util.List;
 //import java.util.logging.Logger;
 //import java.util.Scanner;
 import java.util.Locale;
-
+import java.util.Map;
 
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -62,6 +65,11 @@ public class AgentController {
 
     private static AgentManager agentManager = new AgentManager();
     private final String USER_AGENT = "Mozilla/5.0";
+
+	private static final String POST_URL = "http://localhost:8000/kkk";
+
+	private static final String POST_PARAMS = "userName=Pankaj";
+    
     @RequestMapping(method = GET)
     @ResponseBody
     public Agent getAgent(@RequestParam("name") String name) {
@@ -139,7 +147,7 @@ public class AgentController {
 //    @ResponseBody
 //    public String sendData() throws IOException {
 //		// 연결
-//		String urls = "http://localhost:8000/springdata";
+//		String urls = "http://localhost:8000/kkk";
 //		//String urls = "http://www.google.com";
 //		URL url = new URL(urls);
 //		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -150,19 +158,18 @@ public class AgentController {
 //		conn.setRequestProperty("User-Agent","Mozilla/5.0 ( compatible ) ");
 //		conn.setRequestProperty("Accept","*/*");
 //		// 데이터
-//		//JSONObject obj=new JSONObject();
-//		//obj.put("title","Success!!!!");
+//		JSONObject obj=new JSONObject();
+//		obj.put("title","Success!!!!");
 //		 
-//		String param = "{\"title\": \"asdasd\", \"body\" : \"ddddddddd\"}";
-//		//String param = obj.toString();
-//// 전송	
+//		//String param = "{\"title\": \"asdasd\", \"body\" : \"ddddddddd\"}";
+//		String param = new String(obj.toString());
+//		// 전송	
 //
 //		OutputStreamWriter osw = new OutputStreamWriter(
 //			conn.getOutputStream());
 //	try {
 //		osw.write(param);
 //		osw.flush();
-//
 //		// 응답
 ////		BufferedReader br = null;
 ////		br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
@@ -191,7 +198,7 @@ public class AgentController {
 //		}
 //		return "/";
 // 	}
-//	
+	
 //	@RequestMapping(value = "do", method=RequestMethod.POST)
 //	@ResponseBody
 //	public String sendData() throws IOException{
@@ -222,47 +229,84 @@ public class AgentController {
 //	}
 //	
 	
-	@RequestMapping(value = "/do", method = RequestMethod.POST,  consumes = "application/json")
-    @ResponseBody
-    public String sendData() throws IOException {
-		String url = "http://localhost:8000/springdata";
-		  URL obj = new URL(url);
-		  HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-		 
-		        // Setting basic post request
-		  con.setRequestMethod("POST");
-		  con.setRequestProperty("User-Agent", USER_AGENT);
-		  con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-		  con.setRequestProperty("Content-Type","application/json");
-		  con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-		  String postJsonData = "{\"id\":5,\"countryName\":\"USA\",\"population\":8000}";
-		  
-		  // Send post request
-		  con.setDoOutput(true);
-		  DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-		  wr.writeBytes(postJsonData);
-		  wr.flush();
-		  wr.close();
-		 
-		  int responseCode = con.getResponseCode();
-		  System.out.println("nSending 'POST' request to URL : " + url);
-		  System.out.println("Post Data : " + postJsonData);
-		  System.out.println("Response Code : " + responseCode);
-		 
-		  BufferedReader in = new BufferedReader(
-		          new InputStreamReader(con.getInputStream()));
-		  String output;
-		  StringBuffer response = new StringBuffer();
-		 
-		  while ((output = in.readLine()) != null) {
-		   response.append(output);
-		  }
-		  in.close();
-		  
-		  //printing result from response
-		  System.out.println(response.toString());
-		  return "/";
-		 }
+//	@RequestMapping(value = "/do", method = RequestMethod.POST,  consumes = "application/json")
+//    @ResponseBody
+//    public String sendData() throws IOException {
+//		String url = "http://localhost:8000/springdata";
+//		  URL obj = new URL(url);
+//		  HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+//		 
+//		        // Setting basic post request
+//		  con.setRequestMethod("POST");
+//		  con.setRequestProperty("User-Agent", USER_AGENT);
+//		  con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+//		  con.setRequestProperty("Content-Type","application/json");
+//		  con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+//		  String postJsonData = "{\"id\":5,\"countryName\":\"USA\",\"population\":8000}";
+//		  
+//		  // Send post request
+//		  con.setDoOutput(true);
+//		  DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+//		  wr.writeBytes(postJsonData);
+//		  wr.flush();
+//		  wr.close();
+//		 
+//		  int responseCode = con.getResponseCode();
+//		  System.out.println("nSending 'POST' request to URL : " + url);
+//		  System.out.println("Post Data : " + postJsonData);
+//		  System.out.println("Response Code : " + responseCode);
+//		 
+//		  BufferedReader in = new BufferedReader(
+//		          new InputStreamReader(con.getInputStream()));
+//		  String output;
+//		  StringBuffer response = new StringBuffer();
+//		 
+//		  while ((output = in.readLine()) != null) {
+//		   response.append(output);
+//		  }
+//		  in.close();
+//		  
+//		  //printing result from response
+//		  System.out.println(response.toString());
+//		  return "/";
+//		 }
 	
+	@RequestMapping(value = "do", method=RequestMethod.POST)
+	@ResponseBody
+	public String sendData() throws IOException{
+		URL obj = new URL(POST_URL);
+		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+		con.setRequestMethod("POST");
+		con.setRequestProperty("User-Agent", USER_AGENT);
+
+		// For POST only - START
+		con.setDoOutput(true);
+		OutputStream os = con.getOutputStream();
+		os.write(POST_PARAMS.getBytes());
+		os.flush();
+		os.close();
+		// For POST only - END
+
+		int responseCode = con.getResponseCode();
+		System.out.println("POST Response Code :: " + responseCode);
+
+		if (responseCode == HttpURLConnection.HTTP_OK) { //success
+			BufferedReader in = new BufferedReader(new InputStreamReader(
+					con.getInputStream()));
+			String inputLine;
+			StringBuffer response = new StringBuffer();
+
+			while ((inputLine = in.readLine()) != null) {
+				response.append(inputLine);
+			}
+			in.close();
+
+			// print result
+			System.out.println(response.toString());
+		} else {
+			System.out.println("POST request not worked");
+		}
+		return "/";
+	}
 	
 }

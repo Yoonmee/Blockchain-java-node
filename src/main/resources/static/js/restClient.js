@@ -15,6 +15,11 @@ function deleteAllAgents() {
     sendHttpRequest("DELETE", "agent/all", null, getAllAgents);
 }
 
+function sendNode() {
+    sendHttpRequest("POST", "agent/send", null, getAllAgents);
+}
+
+
 function createAgent() {
     var idx = getNextCount();
     var name = "Agent" + idx;

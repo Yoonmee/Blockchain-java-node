@@ -24,6 +24,8 @@ function displayAllAgents(json) {
     }
 }
 
+
+
 function displayAgent(jsonAgent) {
     if (typeof jsonAgent === "string") {
         var agent;
