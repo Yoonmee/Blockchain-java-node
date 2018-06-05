@@ -127,7 +127,7 @@ public class AgentController {
 	}
 
 	//spring to node test
-	@RequestMapping(value = "/doA", method = RequestMethod.POST)
+	@RequestMapping(value = "/do", method = RequestMethod.POST,  consumes = "application/json")
     @ResponseBody
     public String sendData() throws IOException {
 		// ¿¬°á
