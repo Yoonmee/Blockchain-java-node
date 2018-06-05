@@ -1,5 +1,6 @@
 package web;
 import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -8,13 +9,12 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
-import javax.net.ssl.HttpsURLConnection;
 import agent.Agent;
 import agent.AgentManager;
 import agent.Block;
 
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -61,7 +61,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 public class AgentController {
 
     private static AgentManager agentManager = new AgentManager();
-
+    private final String USER_AGENT = "Mozilla/5.0";
     @RequestMapping(method = GET)
     @ResponseBody
     public Agent getAgent(@RequestParam("name") String name) {
@@ -134,76 +134,135 @@ public class AgentController {
 			return "/";
 	}
 
-	//spring to node test
+//	//spring to node test
+//	@RequestMapping(value = "/do", method = RequestMethod.POST,  consumes = "application/json")
+//    @ResponseBody
+//    public String sendData() throws IOException {
+//		// 연결
+//		String urls = "http://localhost:8000/springdata";
+//		//String urls = "http://www.google.com";
+//		URL url = new URL(urls);
+//		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+//
+//		conn.setDoOutput(true);
+//		conn.setRequestMethod("POST"); // 보내는 타입
+//		conn.setRequestProperty("Accept-Language", "ko-kr,ko;q=0.8,en-us;q=0.5,en;q=0.3");
+//		conn.setRequestProperty("User-Agent","Mozilla/5.0 ( compatible ) ");
+//		conn.setRequestProperty("Accept","*/*");
+//		// 데이터
+//		//JSONObject obj=new JSONObject();
+//		//obj.put("title","Success!!!!");
+//		 
+//		String param = "{\"title\": \"asdasd\", \"body\" : \"ddddddddd\"}";
+//		//String param = obj.toString();
+//// 전송	
+//
+//		OutputStreamWriter osw = new OutputStreamWriter(
+//			conn.getOutputStream());
+//	try {
+//		osw.write(param);
+//		osw.flush();
+//
+//		// 응답
+////		BufferedReader br = null;
+////		br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+////
+////		String line = null;
+////
+////		while ((line = br.readLine()) != null) {
+////			System.out.println(line);
+////			}
+//		int responseCode = conn.getResponseCode();
+//		System.out.println("\nSending 'POST' request to URL : " + url);
+//		System.out.println("Post parameters : " + param);
+//		System.out.println("Response Code : " + responseCode);
+////
+//		// 닫기
+//		osw.close();
+//		//br.close();
+//	} catch (MalformedURLException e) {
+//		e.printStackTrace();
+//	} catch (ProtocolException e) {
+//		e.printStackTrace();
+//	} catch (UnsupportedEncodingException e) {
+//		e.printStackTrace();
+//	} catch (IOException e) {
+//		e.printStackTrace();
+//		}
+//		return "/";
+// 	}
+//	
+//	@RequestMapping(value = "do", method=RequestMethod.POST)
+//	@ResponseBody
+//	public String sendData() throws IOException{
+//		String urlParam = "param1=a";
+//		byte[] postData = urlParam.getBytes(StandardCharsets.UTF_8);
+//		int postDataLength = postData.length;
+//		
+//		String urls = "http://localhost:8000/springdata";
+//		URL url = new URL(urls);
+//		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+//				
+//		conn.setDoOutput(true);
+//		conn.setInstanceFollowRedirects(false);
+//		conn.setRequestMethod("POST");
+//		conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+//		conn.setRequestProperty("charset", "utf-8");
+//		conn.setRequestProperty("Content-Length", Integer.toString(postDataLength));
+//		conn.setUseCaches(false);
+//		
+//		try(DataOutputStream wr = new DataOutputStream(conn.getOutputStream())){
+//			wr.write(postData);
+//			int responseCode = conn.getResponseCode();
+//			System.out.println("\nSending 'POST' request to URL : " + url);
+//			System.out.println("Post parameters : " + postData);
+//			System.out.println("Response Code : " + responseCode);
+//		}
+//		return "/";
+//	}
+//	
+	
 	@RequestMapping(value = "/do", method = RequestMethod.POST,  consumes = "application/json")
     @ResponseBody
     public String sendData() throws IOException {
-		// 연결
-		String urls = "http://localhost:8000/springdata";
-		//String urls = "http://www.google.com";
-		URL url = new URL(urls);
-		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-
-		conn.setDoOutput(true);
-		conn.setRequestMethod("POST"); // 보내는 타입
-		conn.setRequestProperty("Accept-Language", "ko-kr,ko;q=0.8,en-us;q=0.5,en;q=0.3");
-		conn.setRequestProperty("User-Agent","Mozilla/5.0 ( compatible ) ");
-		conn.setRequestProperty("Accept","*/*");
-		// 데이터
-
-		String param = "{\"title\": \"asdasd\", \"body\" : \"ddddddddd\"}";
-// 전송
-
-		OutputStreamWriter osw = new OutputStreamWriter(
-			conn.getOutputStream());
-	try {
-		osw.write(param);
-		osw.flush();
-
-		// 응답
-//		BufferedReader br = null;
-//		br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
-//
-//		String line = null;
-//
-//		while ((line = br.readLine()) != null) {
-//			System.out.println(line);
-//			}
-		int responseCode = conn.getResponseCode();
-		System.out.println("\nSending 'POST' request to URL : " + url);
-		System.out.println("Post parameters : " + param);
-		System.out.println("Response Code : " + responseCode);
-//
-		// 닫기
-		osw.close();
-		//br.close();
-	} catch (MalformedURLException e) {
-		e.printStackTrace();
-	} catch (ProtocolException e) {
-		e.printStackTrace();
-	} catch (UnsupportedEncodingException e) {
-		e.printStackTrace();
-	} catch (IOException e) {
-		e.printStackTrace();
-		}
-		return "/";
- 	}
+		String url = "http://localhost:8000/springdata";
+		  URL obj = new URL(url);
+		  HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+		 
+		        // Setting basic post request
+		  con.setRequestMethod("POST");
+		  con.setRequestProperty("User-Agent", USER_AGENT);
+		  con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+		  con.setRequestProperty("Content-Type","application/json");
+		  con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+		  String postJsonData = "{\"id\":5,\"countryName\":\"USA\",\"population\":8000}";
+		  
+		  // Send post request
+		  con.setDoOutput(true);
+		  DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+		  wr.writeBytes(postJsonData);
+		  wr.flush();
+		  wr.close();
+		 
+		  int responseCode = con.getResponseCode();
+		  System.out.println("nSending 'POST' request to URL : " + url);
+		  System.out.println("Post Data : " + postJsonData);
+		  System.out.println("Response Code : " + responseCode);
+		 
+		  BufferedReader in = new BufferedReader(
+		          new InputStreamReader(con.getInputStream()));
+		  String output;
+		  StringBuffer response = new StringBuffer();
+		 
+		  while ((output = in.readLine()) != null) {
+		   response.append(output);
+		  }
+		  in.close();
+		  
+		  //printing result from response
+		  System.out.println(response.toString());
+		  return "/";
+		 }
 	
-//	 @RequestMapping(value = "/doA", method = RequestMethod.GET)
-//	    public String doA(Locale locale, Model model) throws JSONException{
-//		 System.out.println("HI");
-//		 JSONObject cred = new JSONObject();
-//	        JSONObject auth = new JSONObject();
-//	        JSONObject parent = new JSONObject();
-//	        cred.put("username","adm");
-//	        cred.put("password", "pwd");
-//	        auth.put("tenantName", "adm");
-//	        auth.put("passwordCredentials", cred);
-//	        parent.put("auth", auth);
-//
-//	        URLConn conn = new URLConn("http://127.0.0.1","/getspring",8000);
-//	        conn.urlPost(parent);
-//	        return "index";
-//	    }
-
+	
 }
