@@ -51,8 +51,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 //	//private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 //
 //	@RequestMapping(value = "/domine", method = RequestMethod.POST, consumes = "application/json")
-//	//consumes 占싹댐옙 占쏙옙占승댐옙 application/json 占쏙옙占쏙옙占싱댐옙.
-//	@ResponseBody //json 占쏙옙占쏙옙占싶몌옙 占쌨깍옙占쏙옙占쏙옙 @ResponseBody 占쌍놂옙占쏙옙占싱쇽옙
+//	//consumes �뜝�떦�뙋�삕 �뜝�룞�삕�뜝�듅�뙋�삕 application/json �뜝�룞�삕�뜝�룞�삕�뜝�떛�뙋�삕.
+//	@ResponseBody //json �뜝�룞�삕�뜝�룞�삕�뜝�떢紐뚯삕 �뜝�뙣源띿삕�뜝�룞�삕�뜝�룞�삕 @ResponseBody �뜝�뙇�냲�삕�뜝�룞�삕�뜝�떛�눦�삕
 //	public String startApp(@RequestBody String body) {
 //			System.out.println(body);
 //			return "/";
@@ -68,7 +68,7 @@ public class AgentController {
 
 	private static final String POST_URL = "http://localhost:8000/kkk";
 
-	private static final String POST_PARAMS = "userName=ohm!";
+	private static final String POST_PARAMS = "userid=ohm!";
     
     @RequestMapping(method = GET)
     @ResponseBody
@@ -82,7 +82,7 @@ public class AgentController {
         agentManager.deleteAgent(name);
     }
 
-    //agent 占싱몌옙, port 占쏙옙占실뤄옙 占쌩곤옙
+    //agent �뜝�떛紐뚯삕, port �뜝�룞�삕�뜝�떎琉꾩삕 �뜝�뙥怨ㅼ삕
     //@RequestMapping(method=POST, params = {"name", "port"})
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
@@ -135,8 +135,8 @@ public class AgentController {
     }
 
 	@RequestMapping(value = "/start", method = RequestMethod.POST, consumes = "application/json")
-	//consumes 占싹댐옙 占쏙옙占승댐옙 application/json 占쏙옙占쏙옙占싱댐옙.
-	@ResponseBody //json 占쏙옙占쏙옙占싶몌옙 占쌨깍옙占쏙옙占쏙옙 @ResponseBody 占쌍놂옙占쏙옙占싱쇽옙
+	//consumes �뜝�떦�뙋�삕 �뜝�룞�삕�뜝�듅�뙋�삕 application/json �뜝�룞�삕�뜝�룞�삕�뜝�떛�뙋�삕.
+	@ResponseBody //json �뜝�룞�삕�뜝�룞�삕�뜝�떢紐뚯삕 �뜝�뙣源띿삕�뜝�룞�삕�뜝�룞�삕 @ResponseBody �뜝�뙇�냲�삕�뜝�룞�삕�뜝�떛�눦�삕
 	public String startApp(@RequestBody String body) {
 			System.out.println(body);
 			return "/";
@@ -146,31 +146,31 @@ public class AgentController {
 //	@RequestMapping(value = "/do", method = RequestMethod.POST,  consumes = "application/json")
 //    @ResponseBody
 //    public String sendData() throws IOException {
-//		// 연결
+//		// �뿰寃�
 //		String urls = "http://localhost:8000/kkk";
 //		//String urls = "http://www.google.com";
 //		URL url = new URL(urls);
 //		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 //
 //		conn.setDoOutput(true);
-//		conn.setRequestMethod("POST"); // 보내는 타입
+//		conn.setRequestMethod("POST"); // 蹂대궡�뒗 ���엯
 //		conn.setRequestProperty("Accept-Language", "ko-kr,ko;q=0.8,en-us;q=0.5,en;q=0.3");
 //		conn.setRequestProperty("User-Agent","Mozilla/5.0 ( compatible ) ");
 //		conn.setRequestProperty("Accept","*/*");
-//		// 데이터
+//		// �뜲�씠�꽣
 //		JSONObject obj=new JSONObject();
 //		obj.put("title","Success!!!!");
 //		 
 //		//String param = "{\"title\": \"asdasd\", \"body\" : \"ddddddddd\"}";
 //		String param = new String(obj.toString());
-//		// 전송	
+//		// �쟾�넚	
 //
 //		OutputStreamWriter osw = new OutputStreamWriter(
 //			conn.getOutputStream());
 //	try {
 //		osw.write(param);
 //		osw.flush();
-//		// 응답
+//		// �쓳�떟
 ////		BufferedReader br = null;
 ////		br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
 ////
@@ -184,7 +184,7 @@ public class AgentController {
 //		System.out.println("Post parameters : " + param);
 //		System.out.println("Response Code : " + responseCode);
 ////
-//		// 닫기
+//		// �떕湲�
 //		osw.close();
 //		//br.close();
 //	} catch (MalformedURLException e) {
@@ -271,7 +271,7 @@ public class AgentController {
 //		  return "/";
 //		 }
 	
-	@RequestMapping(value = "/do", method=RequestMethod.GET)
+	@RequestMapping(value = "/do", method=RequestMethod.POST)
 	@ResponseBody
 	public String sendData() throws IOException{
 		
