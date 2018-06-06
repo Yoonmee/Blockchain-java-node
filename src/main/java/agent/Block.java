@@ -24,13 +24,13 @@ public class Block implements Serializable {
 
         //toString biddata 정보 출력
         public String BidDatatoString() {
-          return "BidData{" +
-                  "user_id=" + user_id +
-                  ", item_id=" + item_id +
-                  ", bidding_price='" + bidding_price + //'\'' +
-                  ", auto_bid_price='" + auto_bid_price + //'\'' +
-                  ", bid_time='" + bid_time +
-                  '}';
+          return "BidData[" +
+                  "user_id-" + user_id +
+                  "/item_id-" + item_id +
+                  "/bidding_price-" + bidding_price +
+                  "/auto_bid_price-" + auto_bid_price +
+                  "/bid_time-" + bid_time +
+                  "]";
                   //", highest_price='" + highest_price +
        }
 
@@ -97,8 +97,7 @@ public class Block implements Serializable {
     private String hash;
     private String previousHash;
     private String creator;
-    private String data_string;
-    //private BidData data;
+    private String data;
 
     // for jackson
     public Block() {
@@ -110,10 +109,10 @@ public class Block implements Serializable {
                 "index=" + index +
                 ", timestamp=" + timestamp +
                 ", creator=" + creator +
-               ", hash='" + hash + //"'\'" +
-               ", previousHash='" + previousHash +  //"'\'"  +
-               ", data='" + data_string +
-                '}';
+//               ", hash='" + hash + //"'\'" +
+//               ", previousHash='" + previousHash +  //"'\'"  +
+               ", data=" + data +
+                "}";
     }
 
     @Override
@@ -151,13 +150,12 @@ public class Block implements Serializable {
 //        hash = calculateHash(String.valueOf(index) + previousHash + String.valueOf(timestamp));
 //    }
 
-    public Block(int index, String preHash, String creator, String data_string) {
+    public Block(int index, String preHash, String creator, String data) {
         this.index = index;
         this.previousHash = preHash;
         this.creator = creator;
-        //this.data = data;
         timestamp = System.currentTimeMillis();
-        this.data_string = data_string;
+        this.data = data;
         hash = calculateHash(String.valueOf(index) + previousHash + String.valueOf(timestamp));
     }
 
@@ -183,7 +181,7 @@ public class Block implements Serializable {
 
     public String getBidData()
     {
-        return data_string;
+        return data;
     }
 
     private String calculateHash(String text) {

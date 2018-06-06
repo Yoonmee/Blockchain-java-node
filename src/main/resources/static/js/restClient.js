@@ -40,7 +40,7 @@ function getAgent() {
     sendHttpRequest("GET", "agent?name=" + name, null, null);
 }
 
-function mine(name) {
+function mine(name) {	
     sendHttpRequest("POST", "agent/mine?agent=" + name, null, getAllAgents);
 
     if (testMode) {

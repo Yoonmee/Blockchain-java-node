@@ -45,20 +45,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
-//@Controller
-//public class AgentController {
-//
-//	//private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-//
-//	@RequestMapping(value = "/domine", method = RequestMethod.POST, consumes = "application/json")
-//	//consumes �뜝�떦�뙋�삕 �뜝�룞�삕�뜝�듅�뙋�삕 application/json �뜝�룞�삕�뜝�룞�삕�뜝�떛�뙋�삕.
-//	@ResponseBody //json �뜝�룞�삕�뜝�룞�삕�뜝�떢紐뚯삕 �뜝�뙣源띿삕�뜝�룞�삕�뜝�룞�삕 @ResponseBody �뜝�뙇�냲�삕�뜝�룞�삕�뜝�떛�눦�삕
-//	public String startApp(@RequestBody String body) {
-//			System.out.println(body);
-//			return "/";
-//	}
-//}
-
 @Controller
 @RequestMapping(path = "/agent")
 public class AgentController {
@@ -82,7 +68,6 @@ public class AgentController {
         agentManager.deleteAgent(name);
     }
 
-    //agent �뜝�떛紐뚯삕, port �뜝�룞�삕�뜝�떎琉꾩삕 �뜝�뙥怨ㅼ삕
     //@RequestMapping(method=POST, params = {"name", "port"})
     @RequestMapping(value = "/data", method = RequestMethod.POST)
     @ResponseBody
@@ -91,27 +76,12 @@ public class AgentController {
     	 JSONParser jsonParser = new JSONParser();
          JSONObject jsonObj = (JSONObject) jsonParser.parse(body);
          //JSONArray memberArray = (JSONArray) jsonObj.get("members");
-         String user_id = (jsonObj.get("user_id")).toString();
-     	System.out.println(user_id);
-    	return agentManager.addAgent(user_id, 3001);
+        String user_id = (jsonObj.get("user_id")).toString();
+        int user_id_int = Integer.parseInt(user_id);
+     	System.out.println("bid user_id : (string)" + user_id);
+     	System.out.println("bid user_id : (string)" + user_id_int);
+    	return agentManager.addAgent(user_id, 3000 + user_id_int);
     }
-
-    // @RequestMapping(value = "/getData", method = RequestMethod.GET)
-    // public String getData(){
-    //     // JSONObject cred = new JSONObject();
-    //     // JSONObject auth=new JSONObject();
-    //     // JSONObject parent=new JSONObject();
-    //     // cred.put("username","adm");
-    //     // cred.put("password", "pwd");
-    //     // auth.put("tenantName", "adm");
-    //     // auth.put("passwordCredentials", cred);
-    //     // parent.put("auth", auth);
-    //
-    //     URLConn conn = new URLConn("http://127.0.0.1",8000);
-    //     conn.urlPost("test");
-    //
-    //     return "index";
-    // }
 
 
     @RequestMapping(path = "all", method = GET)
@@ -125,23 +95,74 @@ public class AgentController {
     public void deleteAllAgents() {
         agentManager.deleteAllAgents();
     }
+    
+//    @RequestMapping(method = POST, path = "mine")
+//    public Block createBlock(@RequestParam(value = "agent") final String name) {
+//        return agentManager.createBlock(name);
+//    }
 
-    @RequestMapping(path = "mine", method = POST)
-    //@RequestMapping(method = RequestMethod.POST, value = "/mine")
+    //@RequestMapping(path = "mine", method = POST)
+    @RequestMapping(method = RequestMethod.POST, value = "/mine")
     @ResponseBody
-    public Block createBlock(@RequestParam(value = "agent") final String name) {
-
-    	return agentManager.createBlock(name);
+    public Block createBlock(@RequestBody String body) throws ParseException {
+    	System.out.println("mineblock");
+    	JSONParser jsonParser = new JSONParser();
+        JSONObject jsonObj = (JSONObject) jsonParser.parse(body);
+        //JSONArray memberArray = (JSONArray) jsonObj.get("members");
+        String user_id = (jsonObj.get("user_id")).toString();
+        int user_id_int = Integer.parseInt(user_id);
+    	System.out.println("bid user_id : (string)" + user_id);
+    	System.out.println("bid user_id : (string)" + user_id_int);
+    	return agentManager.createBlock(user_id);
     }
 
 	@RequestMapping(value = "/start", method = RequestMethod.POST, consumes = "application/json")
-	//consumes �뜝�떦�뙋�삕 �뜝�룞�삕�뜝�듅�뙋�삕 application/json �뜝�룞�삕�뜝�룞�삕�뜝�떛�뙋�삕.
 	@ResponseBody //json �뜝�룞�삕�뜝�룞�삕�뜝�떢紐뚯삕 �뜝�뙣源띿삕�뜝�룞�삕�뜝�룞�삕 @ResponseBody �뜝�뙇�냲�삕�뜝�룞�삕�뜝�떛�눦�삕
 	public String startApp(@RequestBody String body) {
 			System.out.println(body);
 			return "/";
 	}
 
+	
+	@RequestMapping(value = "/do", method=RequestMethod.POST)
+	@ResponseBody
+	public String sendData() throws IOException{
+		
+		URL obj = new URL(POST_URL);
+		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+		con.setRequestMethod("POST");
+		con.setRequestProperty("User-Agent", USER_AGENT);
+
+		// For POST only - START
+		con.setDoOutput(true);
+		OutputStream os = con.getOutputStream();
+		os.write(POST_PARAMS.getBytes());
+		os.flush();
+		os.close();
+		// For POST only - END
+
+		int responseCode = con.getResponseCode();
+		System.out.println("POST Response Code :: " + responseCode);
+
+		if (responseCode == HttpURLConnection.HTTP_OK) { //success
+			BufferedReader in = new BufferedReader(new InputStreamReader(
+					con.getInputStream()));
+			String inputLine;
+			StringBuffer response = new StringBuffer();
+
+			while ((inputLine = in.readLine()) != null) {
+				response.append(inputLine);
+			}
+			in.close();
+
+			// print result
+			System.out.println(response.toString());
+		} else {
+			System.out.println("POST request not worked");
+		}
+		return "/";
+	}
+	
 //	//spring to node test
 //	@RequestMapping(value = "/do", method = RequestMethod.POST,  consumes = "application/json")
 //    @ResponseBody
@@ -270,44 +291,5 @@ public class AgentController {
 //		  System.out.println(response.toString());
 //		  return "/";
 //		 }
-	
-	@RequestMapping(value = "/do", method=RequestMethod.POST)
-	@ResponseBody
-	public String sendData() throws IOException{
-		
-		URL obj = new URL(POST_URL);
-		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
-		con.setRequestMethod("POST");
-		con.setRequestProperty("User-Agent", USER_AGENT);
-
-		// For POST only - START
-		con.setDoOutput(true);
-		OutputStream os = con.getOutputStream();
-		os.write(POST_PARAMS.getBytes());
-		os.flush();
-		os.close();
-		// For POST only - END
-
-		int responseCode = con.getResponseCode();
-		System.out.println("POST Response Code :: " + responseCode);
-
-		if (responseCode == HttpURLConnection.HTTP_OK) { //success
-			BufferedReader in = new BufferedReader(new InputStreamReader(
-					con.getInputStream()));
-			String inputLine;
-			StringBuffer response = new StringBuffer();
-
-			while ((inputLine = in.readLine()) != null) {
-				response.append(inputLine);
-			}
-			in.close();
-
-			// print result
-			System.out.println(response.toString());
-		} else {
-			System.out.println("POST request not worked");
-		}
-		return "/";
-	}
 	
 }

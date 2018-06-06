@@ -13,7 +13,7 @@ public class AgentManager {
     private static Date today = new Date();
     private static Block temp = new Block();
     //private static Block.BidData root_data = temp.new BidData();
-    private static final Block root = new Block(0, "ROOT_HASH", "ROOT", "{BidData{user_id = 0, item_id = 0, bidding_price = 0, auto_bid_price = 0, bid_time = 0}}");
+    private static final Block root = new Block(0, "ROOT_HASH", "ROOT", "BidData[user_id-0/item_id-0/bidding_price-0/auto_bid_price-0/bid_time-0]");
 
     public Agent addAgent(String name, int port) {
         Agent a = new Agent(name, "localhost", port, root, agents);

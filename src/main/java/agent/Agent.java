@@ -79,8 +79,8 @@ public class Agent {
         final int index = previousBlock.getIndex() + 1;
         //final Block block = new Block(index, previousBlock.getHash(), name);
         final Block block = new Block(index, previousBlock.getHash(), name, data_string);
-        System.out.println(String.format("%s created new block %s !!!!!", name, block.toString()));
-        System.out.println(String.format("bid dat is string? %s", block.getBidData()));
+        System.out.println(String.format("%s created new block %s", name, block.toString()));
+        System.out.println(String.format("bid data is string? %s", block.getBidData()));
         broadcast(INFO_NEW_BLOCK, block);
         return block;
     }
