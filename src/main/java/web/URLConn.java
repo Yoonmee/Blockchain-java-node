@@ -8,7 +8,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Scanner;
 
-import org.json.JSONObject;
+import org.json.simple.JSONObject;
+
 
 public class URLConn {
     URLConnection conn;

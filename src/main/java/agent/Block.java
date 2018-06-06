@@ -14,15 +14,15 @@ public class Block implements Serializable {
     }
 
     public class BidData implements Serializable{
-        int user_id; //°æ¸Å Âü¿© À¯Àú ¾ÆÀÌµğ
-        int item_id; //¹°°Ç id
-        int bidding_price; //À¯Àú ºñµù °¡°İ
-        int auto_bid_price; //¸¸¾à auto bid ÇÒ°Å¸é °¡°İ, ¾Æ´Ï¸é -1
-        Date bid_time; //ºñµù ½Ã°¢
-        //int highest_price; //µî·Ï ´ç½Ã Á¦ÀÏ ÃÖ°í°ª?
+        int user_id; //ê²½ë§¤ ì°¸ì—¬ ìœ ì € ì•„ì´ë””
+        int item_id; //ë¬¼ê±´ id
+        int bidding_price; //ìœ ì € ë¹„ë”© ê°€ê²©
+        int auto_bid_price; //ë§Œì•½ auto bid í• ê±°ë©´ ê°€ê²©, ì•„ë‹ˆë©´ -1
+        Date bid_time; //ë¹„ë”© ì‹œê°
+        //int highest_price; //ë“±ë¡ ë‹¹ì‹œ ì œì¼ ìµœê³ ê°’?
 
 
-        //toString biddata Á¤º¸ Ãâ·Â
+        //toString biddata ì •ë³´ ì¶œë ¥
         public String BidDatatoString() {
           return "BidData{" +
                   "user_id=" + user_id +
@@ -34,7 +34,7 @@ public class Block implements Serializable {
                   //", highest_price='" + highest_price +
        }
 
-       //»ı¼ºÀÚ
+       //ìƒì„±ì
        public BidData()
        {
          this.user_id = 0;
