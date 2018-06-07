@@ -52,9 +52,6 @@ public class AgentController {
     private static AgentManager agentManager = new AgentManager();
     private final String USER_AGENT = "Mozilla/5.0";
 
-	private static final String POST_URL = "http://localhost:8000/kkk";
-
-	private static final String POST_PARAMS = "userid=ohm!";
     
     @RequestMapping(method = GET)
     @ResponseBody
@@ -121,13 +118,52 @@ public class AgentController {
     //낙찰 할 item_id 받아오기
     @RequestMapping(value = "/findWinner", method = RequestMethod.POST, consumes = "application/json")
 	@ResponseBody
-	public String findWinner(@RequestBody String body) throws ParseException {
+	public String findWinner(@RequestBody String body) throws ParseException, IOException {
+    	
+    		//낙찰 하기 위해 WINNER AGENT 찾기
 			System.out.println("findWinnerBlock");
 			JSONParser jsonParser = new JSONParser();
 	        JSONObject jsonObj = (JSONObject) jsonParser.parse(body);
 	        String item_id = (jsonObj.get("item_id")).toString();
-	        
+	        System.out.println(item_id);
 	        //calculate하고 send하는걸로 가야함..!
+	        
+			String POST_PARAMS = "item_id=2&user_id=1";
+	        
+	        URL obj = new URL("http://localhost:8000/getWinner");
+			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+			con.setRequestMethod("POST");
+			con.setRequestProperty("User-Agent", USER_AGENT);
+
+			// For POST only - START
+			con.setDoOutput(true);
+			OutputStream os = con.getOutputStream();
+			os.write(POST_PARAMS.getBytes());
+			os.flush();
+			os.close();
+			// For POST only - END
+
+			int responseCode = con.getResponseCode();
+			System.out.println("POST Response Code :: " + responseCode);
+
+			if (responseCode == HttpURLConnection.HTTP_OK) { //success
+				BufferedReader in = new BufferedReader(new InputStreamReader(
+						con.getInputStream()));
+				String inputLine;
+				StringBuffer response = new StringBuffer();
+
+				while ((inputLine = in.readLine()) != null) {
+					response.append(inputLine);
+				}
+				in.close();
+
+				// print result
+				System.out.println(response.toString());
+			} else {
+				System.out.println("POST request not worked");
+			}
+
+	        
 			return "/";
 	}
 
@@ -143,7 +179,7 @@ public class AgentController {
 	@ResponseBody
 	public String sendData() throws IOException{
 		
-		URL obj = new URL(POST_URL);
+		URL obj = new URL("http://localhost:8000/kkk");
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 		con.setRequestMethod("POST");
 		con.setRequestProperty("User-Agent", USER_AGENT);
@@ -151,6 +187,8 @@ public class AgentController {
 		// For POST only - START
 		con.setDoOutput(true);
 		OutputStream os = con.getOutputStream();
+
+		String POST_PARAMS = "userid=ohm!";
 		os.write(POST_PARAMS.getBytes());
 		os.flush();
 		os.close();
