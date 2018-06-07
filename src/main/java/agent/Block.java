@@ -128,7 +128,8 @@ public class Block implements Serializable {
                 && timestamp.equals(block.timestamp)
                 && hash.equals(block.hash)
                 && previousHash.equals(block.previousHash)
-                && creator.equals(block.creator);
+                && creator.equals(block.creator)
+                && data.equals(block.data);
     }
 
     @Override

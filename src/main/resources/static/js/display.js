@@ -85,7 +85,7 @@ function displayBlock(jsonBlock) {
 
 function getBlockString(block) {
     return "index=" + block.index + " creator=" + block.creator + " timestamp="
-        + block.timestamp + " hash=" + block.hash + " previous hash=" + block.previousHash + " data=" + block.data + "<br>";
+        + block.timestamp + " hash=" + block.hash + " previous hash=" + block.previousHash + " data=" + block.data + "?<br>";
 }
 
 function createBlockP(block) {
