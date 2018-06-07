@@ -128,7 +128,7 @@ public class AgentController {
 	        System.out.println(item_id);
 	        //calculate하고 send하는걸로 가야함..!
 	        
-			String POST_PARAMS = "item_id=2&user_id=1";
+			String POST_PARAMS = "item_id=10&user_id=4";
 	        
 	        URL obj = new URL("http://localhost:8000/getWinner");
 			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
