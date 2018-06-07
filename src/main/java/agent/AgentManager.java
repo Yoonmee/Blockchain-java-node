@@ -58,8 +58,9 @@ public class AgentManager {
         agents.clear();
     }
 
-    public Block createBlock(final String name,String data) {
+    public Block createBlock(final String name, String data) {
         final Agent agent = getAgent(name);
+        //int port = agent.getPort();
         if (agent != null) {
             return agent.createBlock(data);
         }

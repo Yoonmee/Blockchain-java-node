@@ -77,8 +77,10 @@ public class AgentController {
          JSONObject jsonObj = (JSONObject) jsonParser.parse(body);
          //JSONArray memberArray = (JSONArray) jsonObj.get("members");
         String item_id = (jsonObj.get("item_id")).toString();
+        String user_id = (jsonObj.get("user_id")).toString();
+        String user_name = "[item_id:" + item_id + "/" + "user_id:" + user_id + "]";
      	System.out.println("bid item_id : (string)" + item_id);
-     	return agentManager.addAgent(item_id, 3000 + Integer.parseInt(item_id));
+     	return agentManager.addAgent(user_name, Integer.parseInt(item_id)*1000 + Integer.parseInt(user_id));
     }
 
 
@@ -99,20 +101,21 @@ public class AgentController {
 //        return agentManager.createBlock(name);
 //    }
 
-    //@RequestMapping(path = "mine", method = POST)
+    
+    //bidding을 블록으로
     @RequestMapping(method = RequestMethod.POST, value = "/mine")
     @ResponseBody
     public Block createBlock(@RequestBody String body) throws ParseException {
     	System.out.println("mineblock");
     	JSONParser jsonParser = new JSONParser();
         JSONObject jsonObj = (JSONObject) jsonParser.parse(body);
-        //JSONArray memberArray = (JSONArray) jsonObj.get("members");
+        String item_id = (jsonObj.get("item_id")).toString();
         String user_id = (jsonObj.get("user_id")).toString();
-        String data = "user_id-1/bidtime-1";
-
-    	System.out.println("bid user_id : (string)" + user_id);
+        String bidding_price = (jsonObj.get("bidding_price")).toString();
+        String user_name = "[item_id:" + item_id + "/" + "user_id:" + user_id + "]";
+        //String data = "user_id-1/bidtime-1";
     	
-    	return agentManager.createBlock(user_id, data);
+    	return agentManager.createBlock(user_name, bidding_price);
     }
 
 	@RequestMapping(value = "/start", method = RequestMethod.POST, consumes = "application/json")

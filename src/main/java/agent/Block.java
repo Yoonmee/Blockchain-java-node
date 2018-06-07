@@ -153,6 +153,7 @@ public class Block implements Serializable {
     public Block(String data) {
     	this.data = data;
     }
+    
     public Block(int index, String preHash, String creator, String data) {
         this.index = index;
         this.previousHash = preHash;
