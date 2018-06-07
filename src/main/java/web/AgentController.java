@@ -76,11 +76,9 @@ public class AgentController {
     	 JSONParser jsonParser = new JSONParser();
          JSONObject jsonObj = (JSONObject) jsonParser.parse(body);
          //JSONArray memberArray = (JSONArray) jsonObj.get("members");
-        String user_id = (jsonObj.get("user_id")).toString();
-        int user_id_int = Integer.parseInt(user_id);
-     	System.out.println("bid user_id : (string)" + user_id);
-     	System.out.println("bid user_id : (string)" + user_id_int);
-    	return agentManager.addAgent(user_id, 3000 + user_id_int);
+        String item_id = (jsonObj.get("item_id")).toString();
+     	System.out.println("bid item_id : (string)" + item_id);
+     	return agentManager.addAgent(item_id, 3000 + Integer.parseInt(item_id));
     }
 
 
@@ -110,10 +108,11 @@ public class AgentController {
         JSONObject jsonObj = (JSONObject) jsonParser.parse(body);
         //JSONArray memberArray = (JSONArray) jsonObj.get("members");
         String user_id = (jsonObj.get("user_id")).toString();
-        int user_id_int = Integer.parseInt(user_id);
+        String data = "user_id-1/bidtime-1";
+
     	System.out.println("bid user_id : (string)" + user_id);
-    	System.out.println("bid user_id : (string)" + user_id_int);
-    	return agentManager.createBlock(user_id);
+    	
+    	return agentManager.createBlock(user_id, data);
     }
 
 	@RequestMapping(value = "/start", method = RequestMethod.POST, consumes = "application/json")

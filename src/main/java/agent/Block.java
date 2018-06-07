@@ -14,15 +14,15 @@ public class Block implements Serializable {
     }
 
     public class BidData implements Serializable{
-        int user_id; //경매 참여 유저 아이디
-        int item_id; //물건 id
-        int bidding_price; //유저 비딩 가격
-        int auto_bid_price; //만약 auto bid 할거면 가격, 아니면 -1
-        Date bid_time; //비딩 시각
-        //int highest_price; //등록 당시 제일 최고값?
+        int user_id; //寃쎈ℓ 李몄뿬 �쑀�� �븘�씠�뵒
+        int item_id; //臾쇨굔 id
+        int bidding_price; //�쑀�� 鍮꾨뵫 媛�寃�
+        int auto_bid_price; //留뚯빟 auto bid �븷嫄곕㈃ 媛�寃�, �븘�땲硫� -1
+        Date bid_time; //鍮꾨뵫 �떆媛�
+        //int highest_price; //�벑濡� �떦�떆 �젣�씪 理쒓퀬媛�?
 
 
-        //toString biddata 정보 출력
+        //toString biddata �젙蹂� 異쒕젰
         public String BidDatatoString() {
           return "BidData[" +
                   "user_id-" + user_id +
@@ -34,7 +34,7 @@ public class Block implements Serializable {
                   //", highest_price='" + highest_price +
        }
 
-       //생성자
+       //�깮�꽦�옄
        public BidData()
        {
          this.user_id = 0;
@@ -150,6 +150,9 @@ public class Block implements Serializable {
 //        hash = calculateHash(String.valueOf(index) + previousHash + String.valueOf(timestamp));
 //    }
 
+    public Block(String data) {
+    	this.data = data;
+    }
     public Block(int index, String preHash, String creator, String data) {
         this.index = index;
         this.previousHash = preHash;

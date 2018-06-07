@@ -59,7 +59,7 @@ public class Agent {
         return blockchain;
     }
 
-    Block createBlock() {
+    Block createBlock(String data) {
         if (blockchain.isEmpty()) {
             return null;
         }
@@ -72,13 +72,13 @@ public class Agent {
         Date today = new Date();
         System.out.println(today);
 
-        Block temp = new Block();
-        Block.BidData _data = temp.new BidData();
-        _data.AddBidData(1,1,1,1,today);
-        String data_string = _data.BidDatatoString();
+        Block temp = new Block(data);
+       // Block.BidData _data = temp.new BidData();
+       // _data.AddBidData(1,1,1,1,today);
+       // String data_string = _data.BidDatatoString();
         final int index = previousBlock.getIndex() + 1;
         //final Block block = new Block(index, previousBlock.getHash(), name);
-        final Block block = new Block(index, previousBlock.getHash(), name, data_string);
+        final Block block = new Block(index, previousBlock.getHash(), name, data);
         System.out.println(String.format("%s created new block %s", name, block.toString()));
         System.out.println(String.format("bid data is string? %s", block.getBidData()));
         broadcast(INFO_NEW_BLOCK, block);

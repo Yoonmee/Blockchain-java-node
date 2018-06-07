@@ -58,10 +58,10 @@ public class AgentManager {
         agents.clear();
     }
 
-    public Block createBlock(final String name) {
+    public Block createBlock(final String name,String data) {
         final Agent agent = getAgent(name);
         if (agent != null) {
-            return agent.createBlock();
+            return agent.createBlock(data);
         }
         return null;
     }
