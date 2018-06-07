@@ -117,9 +117,22 @@ public class AgentController {
     	
     	return agentManager.createBlock(user_name, bidding_price);
     }
+    
+    //낙찰 할 item_id 받아오기
+    @RequestMapping(value = "/findWinner", method = RequestMethod.POST, consumes = "application/json")
+	@ResponseBody
+	public String findWinner(@RequestBody String body) throws ParseException {
+			System.out.println("findWinnerBlock");
+			JSONParser jsonParser = new JSONParser();
+	        JSONObject jsonObj = (JSONObject) jsonParser.parse(body);
+	        String item_id = (jsonObj.get("item_id")).toString();
+	        
+	        //calculate하고 send하는걸로 가야함..!
+			return "/";
+	}
 
 	@RequestMapping(value = "/start", method = RequestMethod.POST, consumes = "application/json")
-	@ResponseBody //json �뜝�룞�삕�뜝�룞�삕�뜝�떢紐뚯삕 �뜝�뙣源띿삕�뜝�룞�삕�뜝�룞�삕 @ResponseBody �뜝�뙇�냲�삕�뜝�룞�삕�뜝�떛�눦�삕
+	@ResponseBody 
 	public String startApp(@RequestBody String body) {
 			System.out.println(body);
 			return "/";
