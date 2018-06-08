@@ -1,19 +1,15 @@
 package agent;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-
-import agent.Block.BidData;
-
 import java.util.Date;
 
 public class AgentManager {
 
     private List<Agent> agents = new ArrayList<>();
     private static Date today = new Date();
-    private static Block temp = new Block();
-    //private static Block.BidData root_data = temp.new BidData();
-    private static final Block root = new Block(0, "ROOT_HASH", "ROOT", "BidData[user_id-0/item_id-0/bidding_price-0/auto_bid_price-0/bid_time-0]");
+    private static final Block root = new Block(0, "ROOT_HASH", "ROOT", new BidData(0,0,0, today));
 
     public Agent addAgent(String name, int port) {
         Agent a = new Agent(name, "localhost", port, root, agents);
@@ -65,5 +61,43 @@ public class AgentManager {
             return agent.createBlock(data);
         }
         return null;
+    }
+    
+    public String getWinner(final String item_id)
+    {
+    	if(agents.size()!=0)
+    	{
+
+            final Agent agent = agents.get(0);
+            List<Block> bc = agent.getBlockchain();
+            List<Block> temp = new ArrayList<>();
+            
+            for(Block b : bc){
+            	if(b.getBidData().item_id == Integer.parseInt(item_id))
+            	{
+            		temp.add(b);
+            	}
+            }
+            
+            int winner_id = 0;
+            
+            Collections.sort(temp);
+            
+            for(Block b: temp)
+            {
+            	System.out.println(b);
+            }
+            
+            winner_id = temp.get(0).getBidData().getUserID();	
+       
+            String result = "user_id="+winner_id+"item_id"+item_id;
+                
+            return result;
+    	}
+    	else{
+    		return "user_id=-1&item_id=-1";
+    	}
+    	
+    
     }
 }

@@ -78,12 +78,11 @@ public class Agent {
         int user_id = this.port % 1000;
         int bid_price = Integer.parseInt(data);
         
-//        Block temp = new Block();
-//        Block.BidData _data = temp.new BidData();
-//        _data.AddBidData(user_id,item_id,bid_price,0,today);
+        BidData _data = new BidData();
+        _data.AddBidData(user_id,item_id,bid_price,today);
        // String BidData = _data.BidDatatoString();
         //final Block block = new Block(index, previousBlock.getHash(), name);
-        final Block block = new Block(index, previousBlock.getHash(), name, data);
+        final Block block = new Block(index, previousBlock.getHash(), name, _data);
         System.out.println(String.format("%s created new block %s", name, block.toString()));
         System.out.println(String.format("bid data is string??? %s", block.getBidData()));
         broadcast(INFO_NEW_BLOCK, block);

@@ -1,17 +1,11 @@
 package web;
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+
 
 import agent.Agent;
 import agent.AgentManager;
@@ -28,18 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.LinkedHashMap;
 import java.util.List;
-
-
-//import org.springframework.web.bind.annotation.RestController;
-//import org.springframework.ui.Model;
-
-import java.util.List;
-//import java.util.logging.Logger;
-//import java.util.Scanner;
-import java.util.Locale;
-import java.util.Map;
 
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
@@ -126,10 +109,12 @@ public class AgentController {
 	        JSONObject jsonObj = (JSONObject) jsonParser.parse(body);
 	        String item_id = (jsonObj.get("item_id")).toString();
 	        System.out.println(item_id);
-	        //calculate하고 send하는걸로 가야함..!
 	        
-			String POST_PARAMS = "item_id=10&user_id=4";
+	        String winner = agentManager.getWinner(item_id);
 	        
+			//String POST_PARAMS = "item_id=10&user_id=4";
+			String POST_PARAMS = winner;
+			
 	        URL obj = new URL("http://localhost:8000/getWinner");
 			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 			con.setRequestMethod("POST");
