@@ -63,10 +63,10 @@ public class AgentManager {
         return null;
     }
     
-    public String getWinner(final String item_id)
+    public String getWinner(String itemid)
     {
     	System.out.println("start");
-    		
+    	String result = "user_id=-1&item_id=-1";	
     	if(agents.size()!=0)
     	{
             final Agent agent = agents.get(0);
@@ -75,32 +75,33 @@ public class AgentManager {
         	System.out.println("start?");
         	
             for(Block b : bc){
-            	if(b.getBidData().item_id == Integer.parseInt(item_id))
+            	if(b.getBidData().getItemID() == Integer.parseInt(itemid))
             	{
             		temp.add(b);
             		System.out.println(b.toString());
             	}
             }
             
-            int winner_id = 0;
-            
-            Collections.sort(temp);
-            
-            for(Block b: temp)
+            if(temp.size() != 0)
             {
-            	System.out.println(b);
-            }
-            
-            winner_id = temp.get(temp.size()-1).getBidData().getUserID();	
-       
-            String result = "user_id="+winner_id+"&item_id"+item_id;
+            	int winner_id = 0;
                 
-            return result;
+                Collections.sort(temp);
+                
+                for(Block b: temp)
+                {
+                	System.out.println(b.toString());
+                }
+                
+                System.out.println(temp.size());
+                winner_id = temp.get(temp.size()-1).getBidData().getUserID();	
+           
+                result = "user_id="+winner_id+"&item_id="+itemid;
+                System.out.println(result);
+            }
+    
     	}
-    	else{
-    		return "user_id=-1&item_id=-1";
-    	}
-    	
+    	return result;
     
     }
 }

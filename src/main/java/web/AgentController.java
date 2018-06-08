@@ -108,7 +108,7 @@ public class AgentController {
 			JSONParser jsonParser = new JSONParser();
 	        JSONObject jsonObj = (JSONObject) jsonParser.parse(body);
 	        String item_id = (jsonObj.get("item_id")).toString();
-	        System.out.println(item_id);
+	        System.out.println("받은 item_id"+item_id);
 	        
 	        String winner = agentManager.getWinner(item_id);
 	        
