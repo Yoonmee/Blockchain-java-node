@@ -75,7 +75,7 @@ public class AgentController {
          //JSONArray memberArray = (JSONArray) jsonObj.get("members");
         String item_id = (jsonObj.get("item_id")).toString();
         String user_id = (jsonObj.get("user_id")).toString();
-        String user_name = "[item_id:" + item_id + "/" + "user_id:" + user_id + "]";
+        String user_name = "item_id=" + item_id + "&" + "user_id=" + user_id;
      	System.out.println("bid item_id : (string)" + item_id);
      	return agentManager.addAgent(user_name, Integer.parseInt(item_id)*1000 + Integer.parseInt(user_id));
     }
@@ -109,7 +109,7 @@ public class AgentController {
         String item_id = (jsonObj.get("item_id")).toString();
         String user_id = (jsonObj.get("user_id")).toString();
         String bidding_price = (jsonObj.get("bidding_price")).toString();
-        String user_name = "[item_id:" + item_id + "/" + "user_id:" + user_id + "]";
+        String user_name = "item_id=" + item_id + "&" + "user_id=" + user_id;
         //String data = "user_id-1/bidtime-1";
     	
     	return agentManager.createBlock(user_name, bidding_price);
