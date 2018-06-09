@@ -85,7 +85,7 @@ function displayBlock(jsonBlock) {
 
 function getBlockString(block) {
     return "index=" + block.index + " creator=" + block.creator + " timestamp="
-        + block.timestamp + " hash=" + block.hash + " previous hash=" + block.previousHash + " data=" + block.data + "<br>";
+        + block.timestamp + " hash=" + block.hash + " previous hash=" + block.previousHash + "<br>";
 }
 
 function createBlockP(block) {
@@ -93,7 +93,7 @@ function createBlockP(block) {
     var test = block.toString();
     p.title = "creator " + block.creator;
     p.innerHTML = "index=" + block.index + " creator=" + block.creator + " timestamp="
-        + block.timestamp + " hash=" + block.hash + " previous hash=" + block.previousHash + " data=" + block.data;
+        + block.timestamp + " hash=" + block.hash + " previous hash=" + block.previousHash;
     console.log("create p.innerHTML" + p.innerHTML);
     return p;
 }
