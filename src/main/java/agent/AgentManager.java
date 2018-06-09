@@ -12,6 +12,11 @@ public class AgentManager {
     private static final Block root = new Block(0, "ROOT_HASH", "ROOT", new BidData(0,0,0, today));
 
     public Agent addAgent(String name, int port) {
+    	for(Agent a : agents){
+    		if(a.getName().equals(name)){
+    			return a;
+    		}
+    	}
         Agent a = new Agent(name, "localhost", port, root, agents);
         a.startHost();
         agents.add(a);
@@ -65,20 +70,18 @@ public class AgentManager {
     
     public String getWinner(String itemid)
     {
-    	System.out.println("start");
+    	System.out.println("Calculate winner!");
     	String result = "user_id=-1&item_id=-1";	
     	if(agents.size()!=0)
     	{
             final Agent agent = agents.get(0);
             List<Block> bc = agent.getBlockchain();
             List<Block> temp = new ArrayList<>();
-        	System.out.println("start?");
         	
             for(Block b : bc){
             	if(b.getBidData().getItemID() == Integer.parseInt(itemid))
             	{
             		temp.add(b);
-            		System.out.println(b.toString());
             	}
             }
             
@@ -87,17 +90,11 @@ public class AgentManager {
             	int winner_id = 0;
                 
                 Collections.sort(temp);
-                
-                for(Block b: temp)
-                {
-                	System.out.println(b.toString());
-                }
-                
-                System.out.println(temp.size());
+
                 winner_id = temp.get(temp.size()-1).getBidData().getUserID();	
            
                 result = "user_id="+winner_id+"&item_id="+itemid;
-                System.out.println(result);
+                System.out.println("Winneris" + result);
             }
     
     	}
